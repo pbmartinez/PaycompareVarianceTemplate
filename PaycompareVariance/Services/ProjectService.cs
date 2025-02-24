@@ -140,9 +140,9 @@ namespace PaycompareVariance.Services
         public class {name} : IVarianceValidator
         {{
             //TODO: Remember to register this validator in the DI container in PayCompare.Engine.Startup.cs VarianceValidation Section
-            //TODO: Remember to define the enum value for this validator in Domain.Models.Enums.VarianceValidation
+            //TODO: Remember to define the enum value for this validator in Domain.Models.Enums.VarianceValidation and complete below
             public Domain.Models.Enums.VarianceValidation? VarianceValidation =>
-                Domain.Models.Enums.VarianceValidation.{name};
+                Domain.Models.Enums.VarianceValidation.;
             
             //TODO: Remember to complete the implementation of this method
             public ValidatesField(PayCheckField field)
