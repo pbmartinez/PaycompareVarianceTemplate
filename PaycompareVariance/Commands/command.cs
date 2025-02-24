@@ -1,13 +1,8 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
+﻿using Microsoft.VisualStudio.Shell;
 using PaycompareVariance.Services;
 using PaycompareVariance.UI;
+using System;
+using System.ComponentModel.Design;
 using Task = System.Threading.Tasks.Task;
 
 namespace PaycompareVariance.Commands
@@ -62,7 +57,7 @@ namespace PaycompareVariance.Commands
             var inputDetails = new VarianceDetailsInput();
             inputDetails.ShowDialog();
             if (inputDetails.IsValid)
-            { 
+            {
                 // Capture variables (name, description, ticket number)
                 string name = inputDetails.NameTextBox.Text;
                 string description = inputDetails.DescriptionTextBox.Text;
