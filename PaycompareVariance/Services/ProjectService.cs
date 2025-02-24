@@ -330,7 +330,6 @@ namespace PaycompareVariance.Services
             {
                 Directory.CreateDirectory(folderPath);
             }
-            //var files = Directory.GetFiles(folderPath, "*.cs");
             var files = GetFilesWithPattern(folderPath, @"^\d{4}_");
             var lastFile = files.LastOrDefault();
             if (lastFile == null)
@@ -339,7 +338,8 @@ namespace PaycompareVariance.Services
             }
             var lastFileName = Path.GetFileNameWithoutExtension(lastFile);
             var sequence = lastFileName.Split('_')[0];
-            return (int.Parse(sequence) + 10).ToString("D4");
+            var isValidNumber = int.TryParse(sequence, out int sequenceNumber);
+            return isValidNumber ? (int.Parse(sequence) + 10).ToString("D4") : string.Empty;
         }
     }
 }
