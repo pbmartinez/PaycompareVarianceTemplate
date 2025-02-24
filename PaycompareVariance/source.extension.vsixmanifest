@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="PaycompareVariance.12124b83-24f1-41c8-8163-27d1452801db" Version="1.0" Language="en-US" Publisher="Company" />
+        <Identity Id="PaycompareVariance.12124b83-24f1-41c8-8163-27d1452801db" Version="1.0" Language="en-US" Publisher="UKG" />
         <DisplayName>PaycompareVariance</DisplayName>
-        <Description xml:space="preserve">Empty VSIX Project.</Description>
+        <Description xml:space="preserve">This template helps to add the necessary files to implement a variance validator in pay compare project</Description>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">

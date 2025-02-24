@@ -1,12 +1,8 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
+﻿using Microsoft.VisualStudio.Shell;
 using PaycompareVariance.Services;
+using PaycompareVariance.UI;
+using System;
+using System.ComponentModel.Design;
 using Task = System.Threading.Tasks.Task;
 
 namespace PaycompareVariance.Commands
@@ -57,39 +53,30 @@ namespace PaycompareVariance.Commands
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            /*ThreadHelper.ThrowIfNotOnUIThread();
-            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "command";
-
-            // Show a message box to prove we were here
-            VsShellUtilities.ShowMessageBox(
-                this.package,
-                message,
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);*/
-
             ThreadHelper.ThrowIfNotOnUIThread();
+            var inputDetails = new VarianceDetailsInput();
+            inputDetails.ShowDialog();
+            if (inputDetails.IsValid)
+            {
+                // Capture variables (name, description, ticket number)
+                string name = inputDetails.NameTextBox.Text;
+                string description = inputDetails.DescriptionTextBox.Text;
+                string jiraNumber = inputDetails.JiraTextBox.Text;
+                var service = new ProjectService();
 
-            // Capture variables (name, description, ticket number)
-            string name = "name";
-            string description = "description";
-            string jiraNumber = "Jira number";
-            var service = new ProjectService();
+                var validatorPath = service.GetFilePathForValidator(name);
+                var validatorContent = service.GetContentForValidator(name, description);
+                service.WriteClassFile(validatorPath, validatorContent);
 
-            var validatorPath = service.GetFilePathForValidator(name);
-            var validatorContent = service.GetContentForValidator(name, description);
-            service.WriteClassFile(validatorPath, validatorContent);
+                var validatorTestPath = service.GetFilePathForValidatorTest(name);
+                var validatorTestContent = service.GetContentForValidatorTest(name, description);
+                service.WriteClassFile(validatorTestPath, validatorTestContent);
 
-            var validatorTestPath = service.GetFilePathForValidatorTest(name);
-            var validatorTestContent = service.GetContentForValidatorTest(name, description);
-            service.WriteClassFile(validatorTestPath, validatorTestContent);
-
-            var sequence = service.GetSecuenceForMigration();
-            var validatorPathMigration = service.GetFilePathForValidatorMigration(sequence, name);
-            var validatorContentMigration = service.GetContentForValidatorMigration(name, description, sequence, string.Empty, name, description, jiraNumber);
-            service.WriteClassFile(validatorPathMigration, validatorContentMigration);
+                var sequence = service.GetSecuenceForMigration();
+                var validatorPathMigration = service.GetFilePathForValidatorMigration(sequence, name);
+                var validatorContentMigration = service.GetContentForValidatorMigration(name, description, sequence, string.Empty, name, description, jiraNumber);
+                service.WriteClassFile(validatorPathMigration, validatorContentMigration);
+            }
         }
 
 
