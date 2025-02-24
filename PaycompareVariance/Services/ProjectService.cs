@@ -49,7 +49,7 @@ namespace PaycompareVariance.Services
             {
                 Directory.CreateDirectory(folderPath);
             }
-            var filePath = Path.Combine(folderPath, $"{name}.cs");
+            var filePath = Path.Combine(folderPath, $"{name}Tests.cs");
             return filePath;
         }
 
@@ -65,7 +65,7 @@ namespace PaycompareVariance.Services
             {
                 Directory.CreateDirectory(folderPath);
             }
-            var filePath = Path.Combine(folderPath, $"{sequence}_{name}.cs");
+            var filePath = Path.Combine(folderPath, $"{sequence}_Add{name}.cs");
             return filePath;
         }
 
@@ -137,17 +137,20 @@ namespace PaycompareVariance.Services
         /// <summary>
         /// {description}
         /// </summary>
-        public class {name}Validator : IVarianceValidator
+        public class {name} : IVarianceValidator
         {{
+            //TODO: Remember to register this validator in the DI container in PayCompare.Engine.Startup.cs VarianceValidation Section
+            //TODO: Remember to define the enum value for this validator in Domain.Models.Enums.VarianceValidation
             public Domain.Models.Enums.VarianceValidation? VarianceValidation =>
                 Domain.Models.Enums.VarianceValidation.{name};
-
+            
+            //TODO: Remember to complete the implementation of this method
             public ValidatesField(PayCheckField field)
             {{
                 throw new NotImplementedException();
             }}
 
-
+            //TODO: Remember to complete the implementation of this method
             public VarianceValidationResult Validate(PayCheckVariance variance, PayrollRun payrollRun,
                 (UkgProCheckData Before, UkgProCheckData AfterOriginal, UkgProCheckData After) calcData)
             {{
@@ -184,19 +187,19 @@ namespace PaycompareVariance.Services
         /// <summary>
         /// {description}
         /// </summary>
-        public class {name}ValidatorTest
+        public class {name}Tests
         {{
             [Theory]
-            //Uncomment below and complete the test
+            //TODO: Uncomment below and complete the test
             //[InlineData(PayCheckField., true)]
             public void ShouldReturnIfValidatesField(PayCheckField field, bool expected)
             {{
-                var result = new {name}Validator().ValidatesField(field);
+                var result = new {name}().ValidatesField(field);
                 Assert.Equal(expected, result);
             }}
 
             [Theory]
-            //Uncomment below and complete test cases
+            //TODO: Uncomment below and complete test cases
             //[InlineData(PayCheckField., 1, VarianceValidationResult.Acknowledge)]
             public void ShouldValidateVariance(PayCheckField field, decimal varianceAmount, VarianceValidationResult expectedResult)
             {{
@@ -257,7 +260,7 @@ namespace PaycompareVariance.Services
                     }}
                 }};
 
-                var result = new {name}Validator()
+                var result = new {name}()
                     .Validate(variance, new PayrollRun(), (new UkgProCheckData(), afterOrigCalcData, afterCalcData));
                 Assert.Equal(expectedResult, result);
             }}
@@ -281,7 +284,7 @@ namespace PaycompareVariance.Services
         [Migration({migrationSequence}, ""{description}"")]
         public class {name} : PayCompareMigration
         {{
-            //TODO: Remember to complete the appropriate migration id for the Variance Validation row 
+            //TODO: Remember to complete the appropriate migration id for this Variance Validation row 
             protected override void Up()
             {{
                 Execute(@"" 
@@ -330,16 +333,18 @@ namespace PaycompareVariance.Services
             {
                 Directory.CreateDirectory(folderPath);
             }
-            var files = GetFilesWithPattern(folderPath, @"^\d{4}_");
+            var fourInitialNumbersFollowedByUnderscoardPattern = @"^\d{4}_";
+            var files = GetFilesWithPattern(folderPath, fourInitialNumbersFollowedByUnderscoardPattern);
             var lastFile = files.LastOrDefault();
+            var defaultValue = "0010";
             if (lastFile == null)
             {
-                return "0010";
+                return defaultValue;
             }
             var lastFileName = Path.GetFileNameWithoutExtension(lastFile);
             var sequence = lastFileName.Split('_')[0];
             var isValidNumber = int.TryParse(sequence, out int sequenceNumber);
-            return isValidNumber ? (int.Parse(sequence) + 10).ToString("D4") : string.Empty;
+            return isValidNumber ? (sequenceNumber + 10).ToString("D4") : defaultValue;
         }
     }
 }
