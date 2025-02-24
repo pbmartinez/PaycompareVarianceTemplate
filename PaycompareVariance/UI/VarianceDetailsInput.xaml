@@ -5,11 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:PaycompareVariance.UI"
         mc:Ignorable="d" 
-        Title="Variance Details Input" Height="250" Width="350">
+        Title="Variance Validator Details" Height="320" Width="370" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <StackPanel Margin="10">
-            <TextBlock Text="Enter the jira:" Margin="5"/>
-            <StackPanel>
+            <TextBlock Text="Enter the jira of this validator:" Margin="5"/>
+            <StackPanel Margin="0,0,0,15">
                 <TextBox Name="JiraTextBox" Margin="5" Width="300">
                     <TextBox.Text>
                         <Binding Path="Jira" UpdateSourceTrigger="PropertyChanged">
@@ -39,8 +40,8 @@
                     </TextBox.Style>
                 </TextBox>
             </StackPanel>
-            <TextBlock Text="Enter the name:" Margin="5"/>
-            <StackPanel>
+            <TextBlock Text="Enter the validator name:" Margin="5"/>
+            <StackPanel Margin="0,0,0,15">
                 <TextBox Name="NameTextBox" Margin="5" Width="300">
                     <TextBox.Text>
                         <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
@@ -71,8 +72,8 @@
                     </TextBox.Style>
                 </TextBox>
             </StackPanel>
-            <TextBlock Text="Enter the description:" Margin="5"/>
-            <StackPanel>
+            <TextBlock Text="Enter the description for this validator:" Margin="5"/>
+            <StackPanel Margin="0,0,0,15">
                 <TextBox Name="DescriptionTextBox" Margin="5" Width="300">
                     <TextBox.Text>
                         <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
