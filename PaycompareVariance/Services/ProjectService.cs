@@ -281,7 +281,8 @@ namespace PaycompareVariance.Services
         /// <summary>
         /// {description}
         /// </summary>
-        [Migration({migrationSequence}, ""{description}"")]
+        //TODO Remember to review the appropriate migration description below
+        [Migration({migrationSequence}, Add ""{description}"")]
         public class {name} : PayCompareMigration
         {{
             //TODO: Remember to complete the appropriate migration id for this Variance Validation row 
